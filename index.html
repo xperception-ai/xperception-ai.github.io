@@ -218,6 +218,35 @@
             .contact {
                 font-size: 1rem;
             }
+
+            .bottom-logo {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .bottom-logo img {
+                height: 30px;
+            }
+        }
+
+        /* New styles for the bottom logo */
+        .bottom-logo {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .bottom-logo:hover {
+            opacity: 1;
+        }
+
+        .bottom-logo img {
+            height: 60px;
+            width: auto;
+            filter: drop-shadow(0 0 5px rgba(0, 242, 255, 0.5));
         }
     </style>
 </head>
