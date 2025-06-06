@@ -229,24 +229,27 @@
             }
         }
 
-        /* New styles for the bottom logo */
-        .bottom-logo {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 10;
+        .fbk-logo {
+            margin-top: 2.5rem;
             opacity: 0.7;
             transition: opacity 0.3s ease;
+            text-align: center;
         }
 
-        .bottom-logo:hover {
+        .fbk-logo:hover {
             opacity: 1;
         }
 
-        .bottom-logo img {
+        .fbk-logo img {
             height: 60px;
             width: auto;
             filter: drop-shadow(0 0 5px rgba(0, 242, 255, 0.5));
+        }
+
+        @media (max-width: 768px) {
+            .fbk-logo img {
+                height: 30px;
+            }
         }
     </style>
 </head>
@@ -265,11 +268,9 @@
         <div class="contact">
             <a href="mailto:info@xperception.ai">info@xperception.ai</a>
         </div>
-    </div>
-
-    <!-- Bottom logo -->
-    <div class="bottom-logo">
-        <img src="fbk_logo.png" alt="fbk logo">
+        <div class="fbk-logo">
+            <a href="https://www.fbk.eu/en/"><img src="fbk_logo.png" alt="fbk logo"></a>
+        </div>
     </div>
 
     <script>
