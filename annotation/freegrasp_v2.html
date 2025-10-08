@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect Page</title>
+    <style>
+        /* Ensure the iframe takes up the whole page */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe src="" id="iframe"></iframe>
+
+    <script>
+        // Get the current URL's query parameters
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Base URL where the iframe should redirect
+        const baseUrl = "http://www.example.com/advertisement/bag.html";
+
+        // Append the query parameters to the base URL
+        const redirectUrl = baseUrl + "?" + urlParams.toString();
+
+        // Set the iframe's src attribute to the final URL
+        document.getElementById('iframe').src = redirectUrl;
+    </script>
+
+</body>
+</html>
