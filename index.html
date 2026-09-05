@@ -122,6 +122,7 @@
     margin:0 0 12px;font-size:17px;line-height:1.25;font-weight:600;letter-spacing:-.015em;
     background:var(--brand-gradient);-webkit-background-clip:text;background-clip:text;color:transparent;
   }
+  .xp-hero .xp-eyebrow{width:max-content;max-width:100%;margin-left:auto;margin-right:auto}
   .xp-title{
     margin:0 auto;max-width:1000px;
     font-size:clamp(44px,6.2vw,84px);
@@ -141,6 +142,7 @@
     max-width:760px;margin:26px auto 0;
     font-size:clamp(17px,1.9vw,23px);line-height:1.35;font-weight:500;letter-spacing:-.02em;color:#a9a9af;
   }
+  .xp-mobile-break{display:none}
   .xp-subtitle strong{color:#e8e8ed;font-weight:600}
   .xp-actions{display:flex;justify-content:center;align-items:center;gap:22px;margin-top:30px;flex-wrap:wrap}
   .xp-primary{
@@ -154,8 +156,8 @@
   .xp-primary::after{content:"";position:absolute;z-index:-1;left:-25%;top:-110%;width:70%;height:280%;transform:rotate(24deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);opacity:.38;transition:transform .55s cubic-bezier(.16,1,.3,1)}
   .xp-primary:hover::after{transform:translateX(210%) rotate(24deg)}
   .xp-primary:hover,.xp-primary:active{transform:scale(1.02);filter:brightness(1.12);color:#fff}
-  .xp-secondary{display:inline-flex;align-items:center;gap:6px;color:#9abfff;font-size:17px;font-weight:500;transition:color .2s ease}
-  .xp-secondary:hover{color:#d8dce3}
+  .xp-secondary{display:inline-flex;align-items:center;gap:6px;background:var(--brand-gradient);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:17px;font-weight:500;transition:filter .2s ease}
+  .xp-secondary:hover{color:transparent;filter:brightness(1.25)}
   .xp-chevron{font-size:19px;line-height:1;transform:translateY(-1px)}
   .xp-demo-wrap{position:relative;width:min(980px,100%);margin:44px auto 0}
   .xp-demo-glow{
@@ -308,7 +310,7 @@
   .xp-awards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:70px}
   .xp-award{padding:12px;border-radius:28px;background:#fff;box-shadow:0 3px 18px rgba(0,0,0,.06)}
   .xp-award img{display:block;width:100%;border-radius:19px}
-  .xp-award figcaption{padding:18px 12px 10px;color:#6e6e73;font-size:14px}
+  .xp-award figcaption{padding:18px 12px 10px;color:#6e6e73;font-size:14px;text-align:center}
   .xp-citation{max-width:1120px;margin:28px auto 0;text-align:center;color:#6e6e73;font-size:14px;line-height:1.58;white-space:nowrap}
   .xp-team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:70px}
   .xp-person{padding:22px;border:1px solid rgba(255,255,255,.11);border-radius:28px;background:linear-gradient(135deg,rgba(255,255,255,.08),transparent 28%),radial-gradient(circle at 88% 0,rgba(199,204,212,.06),transparent 34%),rgba(15,15,19,.78);backdrop-filter:blur(22px) saturate(135%);-webkit-backdrop-filter:blur(22px) saturate(135%);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 20px 50px rgba(0,0,0,.15)}
@@ -319,13 +321,14 @@
   .xp-person-role{width:max-content;max-width:100%;margin:0;font-size:13px;font-weight:600;min-height:34px;background:var(--brand-gradient);-webkit-background-clip:text;background-clip:text;color:transparent}
   .xp-person-bio{margin:13px 0 0;color:#a4a4aa;font-size:14px;line-height:1.58}
   .xp-vision{max-width:900px;margin:52px auto 0;padding-top:38px;border-top:1px solid var(--line);text-align:center;color:#c7c7cc;font-size:18px;line-height:1.55;letter-spacing:-.01em}
-  .xp-vision-lead{display:block;margin-bottom:8px;font-size:15px;font-style:normal;font-weight:650;background:var(--brand-gradient);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .xp-vision-lead{display:block;width:max-content;max-width:100%;margin-left:auto;margin-right:auto;margin-bottom:8px;font-size:15px;font-style:normal;font-weight:650;background:var(--brand-gradient);-webkit-background-clip:text;background-clip:text;color:transparent}
   .xp-vision-lead:nth-of-type(2){margin-top:30px}
   .xp-link{display:inline-flex;margin-top:16px;color:#9abfff;font-size:14px;font-weight:600;transition:color .2s ease}
   .xp-link:hover{color:#d8dce3}
   .xp-contact{padding:100px 20px 118px;background:radial-gradient(circle at 18% 48%,rgba(41,151,255,.13),transparent 35%),radial-gradient(circle at 85% 30%,rgba(199,204,212,.06),transparent 30%),#090909}
   .xp-contact-inner{width:min(1000px,100%);margin:auto;display:grid;grid-template-columns:.94fr 1.06fr;gap:80px;align-items:start}
   .xp-contact h2{margin:0;font-size:clamp(38px,4.8vw,58px);line-height:1.03;letter-spacing:-.048em}
+  .xp-contact .xp-eyebrow{width:max-content;max-width:100%}
   .xp-contact-copy{margin:22px 0 0;color:#a1a1a6;font-size:17px;line-height:1.5;text-wrap:balance}
   .xp-form{padding:32px;border-radius:28px;background:linear-gradient(135deg,rgba(255,255,255,.09),transparent 28%),radial-gradient(circle at 100% 0,rgba(41,151,255,.1),transparent 32%),rgba(18,18,23,.76);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(26px) saturate(145%);-webkit-backdrop-filter:blur(26px) saturate(145%);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 28px 70px rgba(0,0,0,.24)}
   .xp-field{display:block;margin-bottom:22px}
@@ -343,6 +346,8 @@
   .xp-footer{padding:54px 20px;background:#050505;border-top:1px solid var(--line)}
   .xp-footer-inner{width:min(1120px,100%);margin:auto;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
   .xp-footer-logo{height:38px;width:auto;object-fit:contain}
+  .xp-footer-inner > .xp-link{background:var(--brand-gradient);-webkit-background-clip:text;background-clip:text;color:transparent;transition:filter .2s ease}
+  .xp-footer-inner > .xp-link:hover{color:transparent;filter:brightness(1.25)}
   .xp-partners{display:flex;align-items:center;gap:16px;color:#6e6e73;font-size:12px}
   .xp-partners img{height:39px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.75}
   .xp-legal{width:min(1120px,100%);margin:35px auto 0;padding-top:25px;border-top:1px solid var(--line);color:#5f5f63;font-size:12px}
@@ -378,6 +383,7 @@
     .xp-hero{padding-top:66px;padding-left:14px;padding-right:14px}
     .xp-title{letter-spacing:-.04em}
     .xp-subtitle{margin-top:18px;font-size:17px}
+    .xp-mobile-break{display:block}
     .xp-actions{gap:16px;margin-top:20px}
     .xp-demo{border-radius:23px}
     .xp-demo-wrap{margin-top:22px}
@@ -425,7 +431,7 @@
       <div class="xp-hero-inner">
         <p class="xp-eyebrow">6D perception for robotics</p>
         <h1 class="xp-title">Any object.<br><span class="xp-gradient">Ready to grasp.</span></h1>
-        <p class="xp-subtitle">Turn a CAD model into a grasp-ready 6D pose in seconds.<br><strong>No image collection. No retraining.</strong></p>
+        <p class="xp-subtitle">Turn a CAD model into a grasp-ready<br class="xp-mobile-break"> 6D pose in seconds.<br><strong>No image collection. No retraining.</strong></p>
         <div class="xp-actions">
           <a class="xp-secondary" href="#techDemo">Watch the demo <span class="xp-chevron">›</span></a>
         </div>
@@ -514,7 +520,7 @@
           <div class="xp-capability"><strong>Accuracy</strong><span>Millimeter-level grasp accuracy</span></div>
         </div>
 
-        <p class="xp-simple-setup"><strong>Three steps, handled by the line operator directly.</strong><br>Once integrated, upload the CAD, mark the grasp points, and press run.<br><em>No code, retraining, or lengthy configuration for each new part.</em></p>
+        <p class="xp-simple-setup">Three steps, handled by the line operator directly. Upload the CAD, mark the grasp points, and press run. <br><em>No code, retraining, or reconfiguration for each new part.</em></p>
 
         <div class="xp-flow">
           <article class="xp-flow-card">
