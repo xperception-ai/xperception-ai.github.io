@@ -81,7 +81,19 @@
   .xp-navlink{position:relative;z-index:1;padding:9px 16px;border-radius:100px;color:#c7c7cc;font-size:12.5px;font-weight:500;white-space:nowrap;transition:color .25s ease;display:inline-flex}
   .xp-navlink:hover{color:#fff}
   .xp-navlink.active{color:#fff}
-  .xp-nav-cta{padding:9px 16px;border-radius:999px;background:var(--brand-gradient);color:#fff!important;font-size:12.5px;font-weight:600;box-shadow:0 0 24px rgba(82,123,255,.24)}
+  .xp-nav-cta{
+    position:relative;overflow:hidden;isolation:isolate;
+    display:inline-flex;align-items:center;justify-content:center;
+    min-height:36px;padding:0 16px;border:0;border-radius:999px;
+    background:linear-gradient(135deg,rgba(255,255,255,.18),transparent 42%),var(--brand-gradient);
+    color:#fff!important;font-size:12.5px;font-weight:600;
+    backdrop-filter:blur(16px) saturate(135%);-webkit-backdrop-filter:blur(16px) saturate(135%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.38),inset 0 -1px 0 rgba(20,30,100,.2),0 8px 24px rgba(73,91,220,.24);
+    transition:transform .2s ease,filter .2s ease,box-shadow .2s ease;
+  }
+  .xp-nav-cta::after{content:"";position:absolute;z-index:-1;left:-30%;top:-120%;width:70%;height:300%;transform:rotate(24deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.34),transparent);opacity:.4;transition:transform .55s cubic-bezier(.16,1,.3,1)}
+  .xp-nav-cta:hover::after{transform:translateX(220%) rotate(24deg)}
+  .xp-nav-cta:hover,.xp-nav-cta:active{transform:scale(1.02);filter:brightness(1.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.44),inset 0 -1px 0 rgba(20,30,100,.2),0 10px 28px rgba(73,91,220,.3)}
   @media (max-width:860px){ .xp-navpill{display:none} .xp-nav-grid{grid-template-columns:1fr auto} }
 
   .xp-hero{
@@ -349,9 +361,16 @@
     .xp-citation{white-space:normal}
   }
   @media (max-width:520px){
+    html{scroll-padding-top:56px}
+    main > section{scroll-margin-top:56px}
+    .xp-nav{height:56px}
     .xp-nav-inner{width:calc(100% - 24px)}
-    .xp-nav-cta{padding:7px 12px}
-    .xp-hero{padding-top:74px;padding-left:14px;padding-right:14px}
+    .xp-nav-grid{gap:12px}
+    .xp-brand{gap:5px;font-size:10px}
+    .xp-brand img{height:28px!important;width:auto}
+    .xp-brand-mark{width:9px;height:9px;border-radius:2.5px}
+    .xp-nav-cta{min-height:32px;padding:0 12px}
+    .xp-hero{padding-top:66px;padding-left:14px;padding-right:14px}
     .xp-title{letter-spacing:-.04em}
     .xp-subtitle{margin-top:18px;font-size:17px}
     .xp-actions{gap:16px;margin-top:20px}
@@ -595,13 +614,14 @@ Chasing that question through years of 3D vision and robot-learning research, an
           <p class="xp-contact-copy">Tell us about your line, objects and robotic setup. We'll show you a zero-shot grasp on your own parts.</p>
         </div>
         <div class="xp-form">
-          <form id="xpForm" action="https://formsubmit.co/acaraffa@fbk.eu" method="POST" novalidate="">
+          <form id="xpForm" method="POST" novalidate="">
             <input type="hidden" name="_subject" value="New demo request · xperception.ai">
             <input type="hidden" name="_captcha" value="false">
             <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
             <label class="xp-field"><span>WORK EMAIL *</span><input id="xpEmail" type="email" name="email" placeholder="name@company.com" required=""></label>
-            <label class="xp-field"><span>YOUR USE CASE</span><textarea name="message" rows="4" placeholder="Tell us about your object, camera or robot…"></textarea></label>
             <p id="xpEmailError" style="display:none;color:#ff6961;font-size:13px;margin:-10px 0 18px">Please enter a valid email address.</p>
+            <label class="xp-field"><span>YOUR USE CASE *</span><textarea id="xpMessage" name="message" rows="4" placeholder="Tell us about your object, camera or robot…" required=""></textarea></label>
+            <p id="xpMessageError" style="display:none;color:#ff6961;font-size:13px;margin:-10px 0 18px">Please tell us about your use case.</p>
             <button id="xpSubmit" class="xp-primary" type="submit">Request a demo</button>
             <p class="xp-form-note">No spam. We'll only use your email for the initial contact.</p>
           </form>
@@ -949,16 +969,80 @@ class Component extends DCLogic {
 
     const form = document.getElementById('xpForm');
     const email = document.getElementById('xpEmail');
-    const error = document.getElementById('xpEmailError');
-    if (form) form.addEventListener('submit', (event) => {
-      if (!email || !email.checkValidity()) {
-        event.preventDefault();
-        if (error) error.style.display = 'block';
-        if (email) email.focus();
+    const message = document.getElementById('xpMessage');
+    const emailError = document.getElementById('xpEmailError');
+    const messageError = document.getElementById('xpMessageError');
+    if (form) form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const emailValue = email ? email.value.trim() : '';
+      const emailIsEmpty = emailValue.length === 0;
+      const emailIsValid = !emailIsEmpty && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue);
+      const messageIsValid = message && message.value.trim().length > 0;
+      if (emailError) {
+        emailError.textContent = emailIsEmpty
+          ? 'Please enter your work email.'
+          : 'Please enter a valid email address.';
+        emailError.style.display = emailIsValid ? 'none' : 'block';
+      }
+      if (messageError) messageError.style.display = messageIsValid ? 'none' : 'block';
+      if (!emailIsValid || !messageIsValid) {
+        if (!emailIsValid && email) email.focus();
+        else if (message) message.focus();
+        return;
+      }
+
+      const submitButton = document.getElementById('xpSubmit');
+      const resultTab = window.open('', 'xpDemoRequest');
+      if (resultTab) {
+        resultTab.document.write('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sending request…</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#050505;color:#f5f5f7;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;text-align:center}main{padding:32px}h1{font-size:28px;margin:0 0 10px}p{color:#a1a1a6;margin:0}</style></head><body><main><h1>Sending your request…</h1><p>Please keep this tab open.</p></main></body></html>');
+        resultTab.document.close();
+      }
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending…';
+      }
+
+      const recipient = String.fromCharCode(97,99,97,114,97,102,102,97,64,102,98,107,46,101,117);
+      const endpoint = `https://formsubmit.co/ajax/${recipient}`;
+      const payload = Object.fromEntries(new FormData(form).entries());
+
+      try {
+        const response = await fetch(endpoint, {
+          method:'POST',
+          headers:{'Content-Type':'application/json','Accept':'application/json'},
+          body:JSON.stringify(payload)
+        });
+        const result = await response.json();
+        if (!response.ok || result.success === false) throw new Error('Submission failed');
+
+        form.style.display = 'none';
+        const success = document.getElementById('xpSuccess');
+        if (success) success.style.display = 'block';
+        if (resultTab && !resultTab.closed) {
+          resultTab.document.title = 'Request sent';
+          resultTab.document.querySelector('h1').textContent = 'Request sent.';
+          resultTab.document.querySelector('p').textContent = 'This tab will close automatically in 5 seconds.';
+        }
+      } catch (submissionError) {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Request a demo';
+        }
+        if (resultTab && !resultTab.closed) {
+          resultTab.document.title = 'Unable to send request';
+          resultTab.document.querySelector('h1').textContent = 'Unable to send the request.';
+          resultTab.document.querySelector('p').textContent = 'Please return to the website and try again. This tab will close in 5 seconds.';
+        }
+      } finally {
+        if (resultTab) setTimeout(() => resultTab.close(), 5000);
       }
     });
     if (email) email.addEventListener('input', () => {
-      if (error) error.style.display = 'none';
+      if (emailError) emailError.style.display = 'none';
+    });
+    if (message) message.addEventListener('input', () => {
+      if (messageError) messageError.style.display = 'none';
     });
   }
 }
