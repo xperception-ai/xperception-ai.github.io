@@ -333,8 +333,13 @@
   .xp-field input,.xp-field textarea{width:100%;border:1px solid rgba(255,255,255,.14);border-radius:13px;background:#09090a;color:#fff;padding:14px 15px;font:inherit;outline:none;resize:vertical}
   .xp-field input:focus,.xp-field textarea:focus{border-color:#718ff8;box-shadow:0 0 0 3px rgba(108,126,246,.18)}
   .xp-form .xp-primary{border:0;cursor:pointer;width:100%}
+  .xp-form .xp-primary:disabled{cursor:wait;opacity:.7}
+  .xp-form-status{display:none;margin:13px 0 0;text-align:center;color:#ff8a84;font-size:13px;line-height:1.4}
   .xp-form-note{margin:13px 0 0;text-align:center;color:#6e6e73;font-size:12px}
-  .xp-success{display:none;padding:40px 10px;text-align:center}
+  .xp-success{display:none;padding:42px 12px;text-align:center}
+  .xp-success::before{content:"✓";display:grid;place-items:center;width:54px;height:54px;margin:0 auto 20px;border-radius:50%;background:rgba(120,214,75,.12);border:1px solid rgba(120,214,75,.35);box-shadow:0 0 28px rgba(120,214,75,.14);color:#a9e68b;font-size:25px;font-weight:700}
+  .xp-success h3{margin:0;color:#f5f5f7;font-size:28px;letter-spacing:-.03em}
+  .xp-success p{margin:10px 0 0;color:#a1a1a6;font-size:15px;line-height:1.5}
   .xp-footer{padding:54px 20px;background:#050505;border-top:1px solid var(--line)}
   .xp-footer-inner{width:min(1120px,100%);margin:auto;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
   .xp-footer-logo{height:38px;width:auto;object-fit:contain}
@@ -420,7 +425,7 @@
       <div class="xp-hero-inner">
         <p class="xp-eyebrow">6D perception for robotics</p>
         <h1 class="xp-title">Any object.<br><span class="xp-gradient">Ready to grasp.</span></h1>
-        <p class="xp-subtitle">Turn a CAD model into a grasp-readyi 6D pose in seconds.<br><strong>No image collection. No retraining.</strong></p>
+        <p class="xp-subtitle">Turn a CAD model into a grasp-ready 6D pose in seconds.<br><strong>No image collection. No retraining.</strong></p>
         <div class="xp-actions">
           <a class="xp-secondary" href="#techDemo">Watch the demo <span class="xp-chevron">›</span></a>
         </div>
@@ -614,7 +619,7 @@ Chasing that question through years of 3D vision and robot-learning research, an
           <p class="xp-contact-copy">Tell us about your line, objects and robotic setup. We'll show you a zero-shot grasp on your own parts.</p>
         </div>
         <div class="xp-form">
-          <form id="xpForm" method="POST" novalidate="">
+          <form id="xpForm" action="https://formsubmit.co/acaraffa@fbk.eu" method="POST">
             <input type="hidden" name="_subject" value="New demo request · xperception.ai">
             <input type="hidden" name="_captcha" value="false">
             <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
@@ -623,6 +628,7 @@ Chasing that question through years of 3D vision and robot-learning research, an
             <label class="xp-field"><span>YOUR USE CASE *</span><textarea id="xpMessage" name="message" rows="4" placeholder="Tell us about your object, camera or robot…" required=""></textarea></label>
             <p id="xpMessageError" style="display:none;color:#ff6961;font-size:13px;margin:-10px 0 18px">Please tell us about your use case.</p>
             <button id="xpSubmit" class="xp-primary" type="submit">Request a demo</button>
+            <p id="xpFormStatus" class="xp-form-status" role="alert"></p>
             <p class="xp-form-note">No spam. We'll only use your email for the initial contact.</p>
           </form>
           <div id="xpSuccess" class="xp-success"><h3>Thank you.</h3><p>We'll get back to you shortly.</p></div>
@@ -972,70 +978,45 @@ class Component extends DCLogic {
     const message = document.getElementById('xpMessage');
     const emailError = document.getElementById('xpEmailError');
     const messageError = document.getElementById('xpMessageError');
+    const submit = document.getElementById('xpSubmit');
+    const formStatus = document.getElementById('xpFormStatus');
+    const success = document.getElementById('xpSuccess');
     if (form) form.addEventListener('submit', async (event) => {
       event.preventDefault();
       const emailValue = email ? email.value.trim() : '';
-      const emailIsEmpty = emailValue.length === 0;
-      const emailIsValid = !emailIsEmpty && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue);
-      const messageIsValid = message && message.value.trim().length > 0;
-      if (emailError) {
-        emailError.textContent = emailIsEmpty
-          ? 'Please enter your work email.'
-          : 'Please enter a valid email address.';
-        emailError.style.display = emailIsValid ? 'none' : 'block';
-      }
+      const emailIsValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue);
+      const messageIsValid = Boolean(message && message.value.trim());
+      if (emailError) emailError.style.display = emailIsValid ? 'none' : 'block';
       if (messageError) messageError.style.display = messageIsValid ? 'none' : 'block';
       if (!emailIsValid || !messageIsValid) {
         if (!emailIsValid && email) email.focus();
         else if (message) message.focus();
         return;
       }
-
-      const submitButton = document.getElementById('xpSubmit');
-      const resultTab = window.open('', 'xpDemoRequest');
-      if (resultTab) {
-        resultTab.document.write('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sending request…</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#050505;color:#f5f5f7;font:16px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;text-align:center}main{padding:32px}h1{font-size:28px;margin:0 0 10px}p{color:#a1a1a6;margin:0}</style></head><body><main><h1>Sending your request…</h1><p>Please keep this tab open.</p></main></body></html>');
-        resultTab.document.close();
+      if (formStatus) formStatus.style.display = 'none';
+      if (submit) {
+        submit.disabled = true;
+        submit.textContent = 'Sending…';
       }
-
-      if (submitButton) {
-        submitButton.disabled = true;
-        submitButton.textContent = 'Sending…';
-      }
-
-      const recipient = String.fromCharCode(97,99,97,114,97,102,102,97,64,102,98,107,46,101,117);
-      const endpoint = `https://formsubmit.co/ajax/${recipient}`;
-      const payload = Object.fromEntries(new FormData(form).entries());
-
       try {
-        const response = await fetch(endpoint, {
+        const response = await fetch('https://formsubmit.co/ajax/acaraffa@fbk.eu', {
           method:'POST',
-          headers:{'Content-Type':'application/json','Accept':'application/json'},
-          body:JSON.stringify(payload)
+          headers:{ Accept:'application/json' },
+          body:new FormData(form)
         });
-        const result = await response.json();
+        const result = await response.json().catch(() => ({}));
         if (!response.ok || result.success === false) throw new Error('Submission failed');
-
         form.style.display = 'none';
-        const success = document.getElementById('xpSuccess');
         if (success) success.style.display = 'block';
-        if (resultTab && !resultTab.closed) {
-          resultTab.document.title = 'Request sent';
-          resultTab.document.querySelector('h1').textContent = 'Request sent.';
-          resultTab.document.querySelector('p').textContent = 'This tab will close automatically in 5 seconds.';
-        }
       } catch (submissionError) {
-        if (submitButton) {
-          submitButton.disabled = false;
-          submitButton.textContent = 'Request a demo';
+        if (formStatus) {
+          formStatus.textContent = 'Something went wrong. Please email us at info@xperception.ai.';
+          formStatus.style.display = 'block';
         }
-        if (resultTab && !resultTab.closed) {
-          resultTab.document.title = 'Unable to send request';
-          resultTab.document.querySelector('h1').textContent = 'Unable to send the request.';
-          resultTab.document.querySelector('p').textContent = 'Please return to the website and try again. This tab will close in 5 seconds.';
+        if (submit) {
+          submit.disabled = false;
+          submit.textContent = 'Request a demo';
         }
-      } finally {
-        if (resultTab) setTimeout(() => resultTab.close(), 5000);
       }
     });
     if (email) email.addEventListener('input', () => {
