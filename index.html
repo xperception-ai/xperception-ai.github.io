@@ -174,7 +174,7 @@
   .xp-primary:hover,.xp-primary:active{transform:scale(1.02);filter:brightness(1.12);color:#fff}
   .xp-secondary{display:inline-flex;align-items:center;gap:6px;background:var(--brand-gradient);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:17px;font-weight:500;transition:filter .2s ease}
   .xp-secondary:hover{color:transparent;filter:brightness(1.25)}
-  .xp-chevron{font-size:19px;line-height:1;transform:translateY(-1px)}
+  .xp-chevron{font-size:19px;line-height:1;transform:translateY(-1px);background:var(--brand-gradient);-webkit-background-clip:text;background-clip:text;color:transparent}
   .xp-demo-wrap{position:relative;width:min(980px,100%);margin:44px auto 0}
   .xp-demo-glow{
     position:absolute;inset:7% 12% -4%;z-index:-1;
@@ -197,16 +197,17 @@
   .xp-window-dots{display:flex;gap:7px}
   .xp-window-dots span{display:block;width:9px;height:9px;border-radius:50%;background:#4a4a4d}
   .xp-status{display:flex;align-items:center;gap:8px;font-weight:500}
-  .xp-status-dot{width:7px;height:7px;border-radius:50%;background:var(--success);box-shadow:0 0 14px rgba(120,214,75,.65)}
+  .xp-status-dot{width:7px;height:7px;border-radius:50%;background:#65a94d;box-shadow:0 0 9px rgba(101,169,77,.38)}
   .xp-demo-main{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(240px,.65fr);height:390px}
-  .xp-viewport{position:relative;height:390px;background:#090909;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .xp-viewport{position:relative;height:390px;background:#000;overflow:hidden;display:flex;align-items:center;justify-content:center}
   .xp-viewport::after{
     content:"";position:absolute;inset:0;pointer-events:none;
     background:linear-gradient(180deg,rgba(255,255,255,.025),transparent 18%,transparent 80%,rgba(0,0,0,.18));
   }
   .xp-viewport img{width:100%;height:100%;position:absolute;inset:0;object-fit:contain;opacity:.95;filter:saturate(.85) contrast(1.04)}
-  .xp-pose-stage{position:absolute;left:50%;top:50%;width:100%;max-width:100%;max-height:100%;aspect-ratio:16/9;transform:translate(-51%,-50%) scale(1.15)}
-  .xp-cad-preview{position:absolute;z-index:4;left:16px;top:16px;width:116px;height:302px;padding:14px 14px 15px;border-radius:18px;border:1px solid rgba(255,255,255,.14);background:rgba(14,14,16,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);text-align:center}
+  .xp-pose-stage{position:absolute;left:50%;top:50%;width:100%;max-width:100%;max-height:100%;aspect-ratio:16/9;background:#000;transform:translate(-51%,-50%) scale(1.15)}
+  .xp-frame-cleanup{position:absolute;z-index:1;left:50%;top:50%;height:100%;aspect-ratio:1;transform:translate(-50%,-50%);background:radial-gradient(circle at 14.3% 16.5%,#000 0 1%,transparent 1.35%),radial-gradient(circle at 28.5% 16.5%,#000 0 1%,transparent 1.35%);pointer-events:none}
+  .xp-cad-preview{position:absolute;z-index:4;left:16px;top:16px;width:116px;height:302px;padding:14px 14px 15px;border-radius:18px;border:1px solid rgba(255,255,255,.14);background:#000;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);text-align:center}
   .xp-cad-preview img{position:static;width:55px;height:244px;object-fit:contain;filter:none;opacity:1}
   .xp-cad-preview span{display:block;margin-top:9px;font-size:12px;letter-spacing:.05em;color:#c7c7cc}
   @keyframes xpScanSweep{0%{transform:translateY(-50px);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translateY(520px);opacity:0}}
@@ -226,8 +227,7 @@
   .xp-pose-row{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
   .xp-pose-label{flex:0 0 auto;font-size:12px;color:#8e8e93}
   .xp-pose-value{flex:0 0 auto;min-width:max-content;text-align:right;white-space:nowrap;font-size:12px;color:#f2f2f7;font-variant-numeric:tabular-nums;font-weight:500}
-  .xp-live-badge{margin-top:auto;padding-top:18px;color:#a9e68b;font-size:12px;font-weight:500;display:flex;align-items:center;gap:7px}
-  .xp-live-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--success)}
+  .xp-live-badge{align-self:center;width:max-content;margin-top:auto;color:#8e8e93;font-size:12px;font-weight:500;text-align:center;transform:translateY(6px)}
 
   .xp-section{padding:92px 20px 112px;position:relative}
   .xp-section-inner{width:min(1120px,100%);margin:0 auto}
@@ -404,8 +404,9 @@
     .xp-demo-wrap{margin-top:22px}
     .xp-demo-bar{height:46px;padding:0 15px}
     .xp-viewport{min-height:190px}
-    .xp-pose-stage{left:calc(50% + 26px);top:28px;width:calc(100% - 52px);height:calc(100% - 28px);aspect-ratio:auto;transform:translateX(-50%)}
-    .xp-pose-stage img{object-fit:cover}
+    .xp-pose-stage{left:52px;right:0;top:0;width:auto;height:100%;aspect-ratio:auto;transform:none}
+    .xp-pose-stage img{object-fit:cover;object-position:center 30%;transform:none}
+    .xp-frame-cleanup{top:30%;width:100%;height:auto;transform:translate(-50%,-30%)}
     .xp-cad-preview{display:block;left:5px;top:auto;bottom:5px;width:52px;height:152px;padding:7px 5px 11px;transform:none;border-radius:11px}
     .xp-cad-preview img{width:30px;height:111px}
     .xp-cad-preview span{margin-top:4px;font-size:8px}
@@ -470,6 +471,7 @@
               <div class="xp-viewport">
                 <div class="xp-pose-stage">
                   <img class="xp-pose-frame" id="xpPoseFrame" src="assets/pose-frames/frame-raw.png" alt="Validation frame, scene free of pose overlays before the scan">
+                  <span class="xp-frame-cleanup" aria-hidden="true"></span>
                 </div>
                 <div id="xpScanLine" class="xp-scan-line"></div>
                 <div class="xp-cad-preview">
