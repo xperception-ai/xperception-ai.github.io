@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="xPerception delivers training-free 6D object pose estimation for flexible industrial robotics.">
 <title>xPerception | Industrial Robot Vision</title>
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="xPerception | Industrial Robot Vision">
+<meta property="og:description" content="Training-free 6D object pose estimation for flexible industrial robotics.">
+<meta property="og:image" content="https://xperception.ai/assets/favicon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400..800&display=swap" rel="stylesheet">
@@ -176,6 +182,8 @@
   .xp-secondary:hover{color:transparent;filter:brightness(1.25)}
   .xp-chevron{font-size:19px;line-height:1;transform:translateY(-1px);background:var(--brand-gradient);-webkit-background-clip:text;background-clip:text;color:transparent}
   .xp-demo-wrap{position:relative;width:min(980px,100%);margin:44px auto 0}
+  .xp-demo-caption{max-width:760px;margin:24px auto 0;color:#8e8e93;font-size:15px;line-height:1.55;letter-spacing:-.01em}
+  .xp-demo-caption strong{color:#d2d2d7;font-weight:600}
   .xp-demo-glow{
     position:absolute;inset:7% 12% -4%;z-index:-1;
     background:radial-gradient(circle,rgba(41,151,255,.1),rgba(199,204,212,.025) 40%,transparent 70%);
@@ -402,6 +410,7 @@
     .xp-actions{gap:16px;margin-top:20px}
     .xp-demo{border-radius:23px}
     .xp-demo-wrap{margin-top:22px}
+    .xp-demo-caption{margin-top:18px;padding:0 8px;font-size:14px;line-height:1.5}
     .xp-demo-bar{height:46px;padding:0 15px}
     .xp-viewport{min-height:190px}
     .xp-pose-stage{left:52px;right:0;top:0;width:auto;height:100%;aspect-ratio:auto;transform:none}
@@ -455,7 +464,7 @@
       <div class="xp-hero-inner">
         <p class="xp-eyebrow">6D perception for robotics</p>
         <h1 class="xp-title">Any object.<br><span class="xp-gradient">Ready to grasp.</span></h1>
-        <p class="xp-subtitle">Turn a CAD model into a grasp-ready<br class="xp-mobile-break"> 6D pose in seconds.<br><strong>No image collection. No retraining.</strong></p>
+        <p class="xp-subtitle">Turn a CAD model into a <br class="xp-mobile-break"> 6D pose in seconds.<br><strong>No image collection. No retraining.</strong></p>
         <div class="xp-actions">
           <a class="xp-secondary" href="#techDemo">Watch the demo <span class="xp-chevron">›</span></a>
         </div>
@@ -501,6 +510,7 @@
             </div>
           </div>
         </div>
+        <p class="xp-demo-caption">xPerception matches a CAD model to live camera input and returns grasp-ready 6D object poses without image collection or retraining.</p>
       </div>
     </section>
 
