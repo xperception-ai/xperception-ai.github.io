@@ -374,6 +374,9 @@
   .xp-footer-inner > .xp-link{background:var(--brand-gradient);-webkit-background-clip:text;background-clip:text;color:transparent;transition:filter .2s ease}
   .xp-footer-inner > .xp-link:hover{color:transparent;filter:brightness(1.25)}
   .xp-partners{display:flex;align-items:center;gap:16px;color:#6e6e73;font-size:12px}
+  .xp-partner-link{display:inline-flex;align-items:center;border-radius:6px;transition:filter .2s ease,opacity .2s ease}
+  .xp-partner-link:hover{filter:brightness(1.2)}
+  .xp-partner-link:focus-visible{outline:2px solid rgba(41,151,255,.75);outline-offset:4px}
   .xp-partners img{height:39px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.75}
   .xp-legal{width:min(1120px,100%);margin:35px auto 0;padding-top:25px;border-top:1px solid var(--line);color:#5f5f63;font-size:12px}
   .xp-reveal{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
@@ -701,7 +704,7 @@ Chasing that question through years of 3D vision and robot-learning research, an
     <div class="xp-footer-inner">
       <img class="xp-footer-logo" src="assets/xperception-logo.png" alt="xperception.ai">
       <a class="xp-link" href="mailto:info@xperception.ai" style="margin:0">info@xperception.ai</a>
-      <div class="xp-partners"><span>In collaboration with</span><img src="assets/tev-logo.png" alt="Technologies of Vision"><img src="assets/fbk-logo.png" alt="Fondazione Bruno Kessler"></div>
+      <div class="xp-partners"><span>In collaboration with</span><a class="xp-partner-link" href="https://tev.fbk.eu/" target="_blank" rel="noopener noreferrer" aria-label="Open Technologies of Vision website"><img src="assets/tev-logo.png" alt="Technologies of Vision"></a><a class="xp-partner-link" href="https://www.fbk.eu/en/" target="_blank" rel="noopener noreferrer" aria-label="Open Fondazione Bruno Kessler website"><img src="assets/fbk-logo.png" alt="Fondazione Bruno Kessler"></a></div>
     </div>
     <div class="xp-legal">© 2026 xperception.ai, Fondazione Bruno Kessler. All rights reserved.</div>
   </footer>
